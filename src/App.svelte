@@ -41,9 +41,9 @@
         .run();
 
       alert(
-        `Name: ${metadata.name}, Symbol: ${
+        `Token Metadata\n\nName: ${metadata.name}\nSymbol: ${
           metadata.symbol
-        }, Mint Address: ${metadata.address.toBase58()}`
+        }\nMint Address: ${metadata.address.toBase58()}`
       );
       console.log(metadata);
     } catch (error) {
