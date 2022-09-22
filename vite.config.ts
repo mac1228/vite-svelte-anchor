@@ -1,7 +1,5 @@
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import inject from "@rollup/plugin-inject";
-import * as path from "path";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import nodePolyfills from "rollup-plugin-node-polyfills";
 
@@ -10,7 +8,6 @@ export default defineConfig({
   plugins: [svelte()],
   resolve: {
     alias: {
-      $utils: path.resolve("src/utils/"),
       stream: "rollup-plugin-node-polyfills/polyfills/stream",
       events: "rollup-plugin-node-polyfills/polyfills/events",
       assert: "assert",
@@ -23,14 +20,8 @@ export default defineConfig({
   },
   build: {
     target: "esnext",
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
     rollupOptions: {
-      plugins: [
-        inject({ Buffer: ["buffer", "Buffer"] }),
-        nodePolyfills({ crypto: true }),
-      ],
+      plugins: [nodePolyfills({ crypto: true })],
     },
   },
   optimizeDeps: {

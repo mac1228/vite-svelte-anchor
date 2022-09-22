@@ -11,10 +11,12 @@
   import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
   import { walletStore } from "@svelte-on-solana/wallet-adapter-core";
   import Counter from "./lib/Counter.svelte";
-  import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
+  import * as bs58 from "bs58";
   import svelteLogo from "./assets/svelte.svg";
   import { Metaplex } from "@metaplex-foundation/js";
   import { web3 } from "@project-serum/anchor";
+  import { Buffer } from "buffer";
+  window.Buffer = Buffer;
 
   const localStorageKey = "walletAdapter";
   const network = "https://api.mainnet-beta.solana.com";
