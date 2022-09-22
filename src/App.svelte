@@ -13,6 +13,8 @@
   import Counter from "./lib/Counter.svelte";
   import { bs58 } from "@project-serum/anchor/dist/cjs/utils/bytes";
   import svelteLogo from "./assets/svelte.svg";
+  import { Metaplex } from "@metaplex-foundation/js";
+  import { web3 } from "@project-serum/anchor";
 
   const localStorageKey = "walletAdapter";
   const network = "https://api.mainnet-beta.solana.com";
@@ -20,6 +22,33 @@
 
   let raffles: any[] = [];
   let isFetching = false;
+
+  // get metadata for USDC Coin
+  const getMetadata = async () => {
+    try {
+      const { provider } = $workSpace;
+      const metaplex = new Metaplex(provider.connection);
+
+      const metadata = await metaplex
+        .nfts()
+        .findByMint({
+          mintAddress: new web3.PublicKey(
+            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+          ),
+        })
+        .run();
+
+      alert(
+        `Name: ${metadata.name}, Symbol: ${
+          metadata.symbol
+        }, Mint Address: ${metadata.address.toBase58()}`
+      );
+      console.log(metadata);
+    } catch (error) {
+      alert(error);
+      console.log(error);
+    }
+  };
 
   // get all raffles where total prizes are equal to 1
   const getRaffles = async () => {
@@ -43,6 +72,12 @@
     }
     isFetching = false;
   };
+
+  const openSolscan = () => {
+    const url =
+      "https://solscan.io/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+    window.open(url, "_blank");
+  };
 </script>
 
 <WalletProvider {localStorageKey} {wallets} />
@@ -58,8 +93,14 @@
 
   {#if $walletStore?.connected}
     <div>My wallet is connected</div>
-    <button style="" on:click={getRaffles}
+    <button on:click={getRaffles}
       >{isFetching ? "fetching..." : "fetch draffle raffles"}</button
+    >
+    <button on:click={getMetadata}
+      >Get <a
+        href="https://solscan.io/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+        on:click|stopPropagation|preventDefault={openSolscan}>USDC</a
+      > token metadata</button
     >
   {/if}
   {#if raffles.length}
