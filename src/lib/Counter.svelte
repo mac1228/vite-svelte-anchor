@@ -5,7 +5,10 @@
   };
 </script>
 
-<button on:click={increment}>
+<button
+  class="p-2 hover:border-purple-500 focus:outline-purple-800 focus-visible:outline-purple-800 cursor-pointer rounded-lg"
+  on:click={increment}
+>
   click me: {count}
 </button>
 

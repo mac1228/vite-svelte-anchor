@@ -1,6 +1,6 @@
-# Svelte + TS + Vite + Solana + Anchor + Metaplex
+# Svelte + TS + Vite + Solana + Anchor + Metaplex + Tailwind
 
-This template should help get you started developing with Svelte + TypeScript + Vite + Solana + Anchor + Metaplex 😊.
+This template should help get you started developing with Svelte + TypeScript + Vite + Solana + Anchor + Metaplex + Tailwind 😊
 
 ## Recommended IDE Setup
 
