@@ -94,7 +94,6 @@
   <WalletMultiButton />
 
   {#if $walletStore?.connected}
-    <div>My wallet is connected</div>
     <button
       class="p-2 hover:border-purple-500 focus:outline-purple-800 focus-visible:outline-purple-800 cursor-pointer rounded-lg"
       on:click={getRaffles}
@@ -119,7 +118,7 @@
           target="_blank">draffle</a
         ></span
       >
-      raffles with total prize equal to 1: {raffles.length}
+      raffles with 1 prize = {raffles.length}
     </div>
     <div>
       {#each raffles as raffle (raffle.publicKey.toBase58())}
